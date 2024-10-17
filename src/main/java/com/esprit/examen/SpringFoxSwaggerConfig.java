@@ -3,8 +3,10 @@ package com.esprit.examen;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -33,7 +35,7 @@ public class SpringFoxSwaggerConfig {
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.esprit.examen.controller"))
 				.paths(PathSelectors.any())
-				.build();}
+				.build();
 	}
 	
     private ApiInfo apiEndPointsInfo() {
