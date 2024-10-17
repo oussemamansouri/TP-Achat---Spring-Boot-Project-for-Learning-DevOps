@@ -33,7 +33,7 @@ public class SpringFoxSwaggerConfig {
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.esprit.examen.controller"))
 				.paths(PathSelectors.any())
-				.build();
+				.build();}
 	}
 	
     private ApiInfo apiEndPointsInfo() {
