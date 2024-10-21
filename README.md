@@ -14,7 +14,7 @@ This project, **TP Achat**, is a Spring Boot application designed as a learning 
 
 ## Technologies
 
-- Java (JDK 17)
+- Java (JDK 11)
 - Spring Boot
 - MySQL
 - Maven
@@ -22,7 +22,7 @@ This project, **TP Achat**, is a Spring Boot application designed as a learning 
 
 ## Prerequisites
 
-- JDK 17
+- JDK 11
 - Maven
 - MySQL
 - Git
