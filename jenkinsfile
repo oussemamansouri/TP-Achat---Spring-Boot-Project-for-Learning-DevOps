@@ -1,8 +1,8 @@
 pipeline { 
     agent any
     environment {
-registry = "sawsanselmi/devops"
-registryCredential = 'sawsanselmi'
+registry = "oussema/devops"
+registryCredential = 'oussema'
 dockerImage = 'tpachat'
 }
         
@@ -10,7 +10,7 @@ dockerImage = 'tpachat'
         stage("Cloning Project"){
             steps {
                 git branch: 'main', 
-                url: 'https://github.com/sawsanSe/CICD.git'
+                url: 'https://github.com/oussemamansouri/TP-Achat---Spring-Boot-Project-for-Learning-DevOps.git'
                 echo 'checkout stage'
             }
         }
