@@ -1,9 +1,9 @@
 pipeline { 
     agent any
     environment {
-registry = "oussema/devops"
-registryCredential = 'oussema'
-dockerImage = 'tpachat'
+registry = "oussema619/tp_achat_devops"
+registryCredential = 'oussema619'
+dockerImage = 'tp_achat_devops'
 }
         
     stages {
