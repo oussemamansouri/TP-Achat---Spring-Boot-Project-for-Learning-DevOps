@@ -26,18 +26,7 @@
         </repository>
     </distributionManagement>
 
-    <repositories>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://193.95.57.13:8081/repository/maven-releases/</url>
-        </repository>
-    </repositories>
-
-
     <dependencies>
-
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -56,7 +45,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <!-- <version>5.1.46</version> -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,12 +74,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.esprit.examen</groupId>
-            <artifactId>tpAchatProject</artifactId>
-            <version>1.0</version> <!-- Replace with the actual version you uploaded to Nexus -->
         </dependency>
 
     </dependencies>
