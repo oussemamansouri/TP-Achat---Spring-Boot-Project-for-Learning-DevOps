@@ -13,8 +13,8 @@ services:
    - db:/var/lib/mysql
   tpAchatProject:
    depends_on:
-     -mysqldb
-    image :  amineghanmi/dockerimage
+     - mysqldb
+    image : amineghanmi/dockerimage
     restart: on-failure
     ports:
      -8082:8082
