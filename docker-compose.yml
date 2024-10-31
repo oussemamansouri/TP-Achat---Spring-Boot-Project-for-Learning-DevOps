@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  tpAchatProject:
+    image: amineghanmi/dockerimage
+    restart: unless-stopped
+  environnement:
+    -MYSQL_ROOT_PASSWORD=
+    -MYSQL_DATABASE=alinfo
+  ports:
+    -3306:3306
+  volumes:
+   - db:/var/lib/mysql
+ 
+ 
+ 
+     
