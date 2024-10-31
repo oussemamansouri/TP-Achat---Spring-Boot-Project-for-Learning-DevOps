@@ -12,7 +12,7 @@ services:
   volumes:
    - db:/var/lib/mysql
    
-tpAchatProject:
+app-timesheet:
    depends_on:
      - mysqldb
     image : amineghanmi/dockerimage
