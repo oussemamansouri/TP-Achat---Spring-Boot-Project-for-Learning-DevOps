@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  tpAchatProject:
-    image: amineghanmi/dockerimage
+  mysqldb:
+    image: mysql:5.7
     restart: unless-stopped
   environnement:
     -MYSQL_ROOT_PASSWORD=
@@ -11,6 +11,23 @@ services:
     -3306:3306
   volumes:
    - db:/var/lib/mysql
+  tpAchatProject:
+   depends_on:
+     -mysqldb
+    image :  amineghanmi/dockerimage
+    restart: on-failure
+    ports:
+     -8082:8082
+    environment:
+    SPRING_APPLICATION_JSON:'{
+    "spring.datasource.url":"jdbc:mysql://localhost:3306/alinfo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+    "spring.datasource.username":"root",
+    "spring.datasource.password":,
+    "spring.jpa.properties.hibernate.dialect":"org.hibernate.dialect.MySQL5InnoDBDialect",
+    "spring.jpa.hibernate.ddl-auto" : "update"
+    }'
+    stdin_open: true
+    tty: true
  
  
  
