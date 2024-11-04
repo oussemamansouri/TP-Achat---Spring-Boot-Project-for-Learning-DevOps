@@ -15,7 +15,7 @@ services:
 app-timesheet:
    depends_on:
      - mysqldb
-    image : amineghanmi/dockerimage
+    image: amineghanmi/dockerimage:latest
     restart: on-failure
     ports:
      -8082:8082
