@@ -17,12 +17,13 @@
         <java.version>11</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
-    <!-- nexus -->
+
+    <!-- Deploy to Nexus -->
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>
-            <name>Nexus</name>
-            <url>http://192.168.56.18:8081/repository/maven-releases/</url>
+            <name>Nexus Repository</name>
+            <url>http://193.95.57.13:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
@@ -45,8 +46,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-                 <version>8.0.33</version>
         </dependency>
+		
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -76,7 +77,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -90,6 +90,13 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version> 
             </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
+
         </plugins>
     </build>
 
