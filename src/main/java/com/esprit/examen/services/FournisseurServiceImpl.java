@@ -3,9 +3,7 @@ package com.esprit.examen.services;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.esprit.examen.entities.DetailFournisseur;
 import com.esprit.examen.entities.Fournisseur;
@@ -20,39 +18,46 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FournisseurServiceImpl implements IFournisseurService {
 
-	@Autowired
-	FournisseurRepository fournisseurRepository;
-	@Autowired
-	DetailFournisseurRepository detailFournisseurRepository;
-	@Autowired
-	ProduitRepository produitRepository;
-	@Autowired
-	SecteurActiviteRepository secteurActiviteRepository;
+	final DetailFournisseurRepository detailFournisseurRepository;
+	final SecteurActiviteRepository secteurActiviteRepository;
+	final FournisseurRepository fournisseurRepository;
+	final ProduitRepository produitRepository;
+
+	public FournisseurServiceImpl(
+			FournisseurRepository fournisseurRepository,
+			ProduitRepository produitRepository,
+			DetailFournisseurRepository detailFournisseurRepository,
+			SecteurActiviteRepository secteurActiviteRepository) {
+		this.fournisseurRepository = fournisseurRepository;
+		this.produitRepository = produitRepository;
+		this.detailFournisseurRepository = detailFournisseurRepository;
+		this.secteurActiviteRepository = secteurActiviteRepository;
+
+	}
 
 	@Override
 	public List<Fournisseur> retrieveAllFournisseurs() {
 		log.info(" je commence l'execution de la méthode retrieveAllFournisseurs");
 		List<Fournisseur> fournisseurs = (List<Fournisseur>) fournisseurRepository.findAll();
 		for (Fournisseur fournisseur : fournisseurs) {
-		log.info(" fournisseur : " + fournisseur);
+			log.info(" fournisseur : " + fournisseur);
 
 		}
 		log.info(" j'ai finalisé l'execution de la méthode retrieveAllFournisseurs");
 		return fournisseurs;
 	}
 
-
-	public Fournisseur addFournisseur(Fournisseur f /*Master*/) {
-		DetailFournisseur df= new DetailFournisseur();//Slave
+	public Fournisseur addFournisseur(Fournisseur f /* Master */) {
+		DetailFournisseur df = new DetailFournisseur();// Slave
 		log.debug(" je viens d'ajouter la date à la variable df");
-		df.setDateDebutCollaboration(new Date()); //util
-		//On affecte le "Slave" au "Master"
-		f.setDetailFournisseur(df);	
+		df.setDateDebutCollaboration(new Date()); // util
+		// On affecte le "Slave" au "Master"
+		f.setDetailFournisseur(df);
 		fournisseurRepository.save(f);
 		return f;
 	}
-	
-	private DetailFournisseur  saveDetailFournisseur(Fournisseur f){
+
+	private DetailFournisseur saveDetailFournisseur(Fournisseur f) {
 		DetailFournisseur df = f.getDetailFournisseur();
 		detailFournisseurRepository.save(df);
 		return df;
@@ -60,7 +65,7 @@ public class FournisseurServiceImpl implements IFournisseurService {
 
 	public Fournisseur updateFournisseur(Fournisseur f) {
 		DetailFournisseur df = saveDetailFournisseur(f);
-		f.setDetailFournisseur(df);	
+		f.setDetailFournisseur(df);
 		fournisseurRepository.save(f);
 		return f;
 	}
@@ -82,12 +87,9 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	public void assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur) {
 		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
 		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(null);
-        fournisseur.getSecteurActivites().add(secteurActivite);
-        fournisseurRepository.save(fournisseur);
-		
-		
-	}
+		fournisseur.getSecteurActivites().add(secteurActivite);
+		fournisseurRepository.save(fournisseur);
 
-	
+	}
 
 }
