@@ -1,14 +1,9 @@
 package com.esprit.examen.services;
 
-import java.util.Date;
 import java.util.List;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.esprit.examen.entities.CategorieProduit;
 import com.esprit.examen.entities.Produit;
 import com.esprit.examen.entities.Stock;
-import com.esprit.examen.repositories.CategorieProduitRepository;
 import com.esprit.examen.repositories.ProduitRepository;
 import com.esprit.examen.repositories.StockRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProduitServiceImpl implements IProduitService {
 
-	@Autowired
-	ProduitRepository produitRepository;
-	@Autowired
-	StockRepository stockRepository;
-	
+	final ProduitRepository produitRepository;
+	final StockRepository stockRepository;
+
+	public ProduitServiceImpl(ProduitRepository produitRepository,
+	 StockRepository stockRepository) {
+		this.produitRepository = produitRepository;
+		this.stockRepository = stockRepository;
+	}
 
 	@Override
 	public List<Produit> retrieveAllProduits() {
@@ -32,13 +30,11 @@ public class ProduitServiceImpl implements IProduitService {
 		return produits;
 	}
 
-	//@Transactional
+	// @Transactional
 	public Produit addProduit(Produit p) {
 		produitRepository.save(p);
 		return p;
 	}
-
-	
 
 	@Override
 	public void deleteProduit(Long produitId) {
@@ -66,6 +62,5 @@ public class ProduitServiceImpl implements IProduitService {
 		produitRepository.save(produit);
 
 	}
-
 
 }
