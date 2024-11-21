@@ -36,48 +36,6 @@ services:
     networks:
       - projectdevops
 
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    networks:
-      - projectdevops
-
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    restart: unless-stopped
-    ports:
-      - 9090:9090
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - projectdevops
-
-  nexus:
-    image: sonatype/nexus3
-    container_name: nexus
-    restart: unless-stopped
-    ports:
-      - 8081:8081
-    networks:
-      - projectdevops
-
-  # sonarqube:
-  #   image: sonarqube
-  #   container_name: sonarqube
-  #   restart: unless-stopped
-  #   environment:
-  #     - SONAR_JDBC_URL=jdbc:postgresql://mysqldb/sonarqube
-  #     - SONAR_JDBC_USERNAME=sonar
-  #     - SONAR_JDBC_PASSWORD=sonar
-  #   ports:
-  #     - 9000:9000
-  #   networks:
-  #     - projectdevops
-
 volumes:
   db:
 
