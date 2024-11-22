@@ -38,15 +38,15 @@ services:
       - projectdevops
 
   prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    restart: always
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - projectdevops
+  image: prom/prometheus
+  container_name: prometheus
+  volumes:
+    - /var/lib/jenkins/workspace/BackEnd TP Achat Privé/prometheus:/etc/prometheus
+  ports:
+    - "9090:9090"
+  networks:
+    - projectdevops
+
 
 volumes:
   db:
