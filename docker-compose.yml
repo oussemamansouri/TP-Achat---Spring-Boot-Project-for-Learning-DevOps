@@ -17,12 +17,12 @@ services:
   appspring:
     depends_on:
       - mysqldb
-    image: oussema619/tp_achat_devops:${APP_VERSION}
+    image: oussema619/tp_achat_devops:${APP_VERSION} # Use dynamic tag
     container_name: springapp
     restart: on-failure
     env_file: ./.env
     ports:
-      - 8082:8082
+      - ${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT}
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url"  : "jdbc:mysql://mysqldb:${MYSQLDB_DOCKER_PORT}/alinfo?useSSL=false",
@@ -37,19 +37,8 @@ services:
     networks:
       - projectdevops
 
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    volumes:
-      - /var/lib/jenkins/workspace/BackEnd TP Achat Privé/prometheus:/etc/prometheus
-    ports:
-      - "9090:9090"
-    networks:
-      - projectdevops
-
 volumes:
   db:
 
 networks:
   projectdevops:
-    external: true
