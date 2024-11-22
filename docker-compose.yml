@@ -17,7 +17,7 @@ services:
   appspring:
     depends_on:
       - mysqldb
-    image: oussema619/tp_achat_devops:${APP_VERSION} 
+    image: oussema619/tp_achat_devops:${APP_VERSION}
     container_name: springapp
     restart: on-failure
     env_file: ./.env
@@ -38,15 +38,14 @@ services:
       - projectdevops
 
   prometheus:
-  image: prom/prometheus
-  container_name: prometheus
-  volumes:
-    - /var/lib/jenkins/workspace/BackEnd TP Achat Privé/prometheus:/etc/prometheus
-  ports:
-    - "9090:9090"
-  networks:
-    - projectdevops
-
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - /var/lib/jenkins/workspace/BackEnd TP Achat Privé/prometheus:/etc/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - projectdevops
 
 volumes:
   db:
