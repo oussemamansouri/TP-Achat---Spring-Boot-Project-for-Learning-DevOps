@@ -1,42 +1,42 @@
 services:
   mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    env_file: ./.env
+    image: mysql:5.7  # Use MySQL version 5.7 as the database image
+    restart: unless-stopped  # Always restart unless manually stopped
+    env_file: ./.env  # Load environment variables from the .env file
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
-      - MYSQL_DATABASE=alinfo
-      - MYSQL_ROOT_PASSWORD=${MYSQLDB_ROOT_PASSWORD}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1  # Allow empty password for MySQL (not recommended for production)
+      - MYSQL_DATABASE=alinfo  # Specify the default database name
+      - MYSQL_ROOT_PASSWORD=${MYSQLDB_ROOT_PASSWORD}  # Use the root password from the .env file
     ports:
       - ${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT} # Expose MySQL port for external connections
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/mysql  # Persist MySQL data using a Docker volume
     networks:
-      - projectdevops
+      - projectdevops  # Connect to the project-specific network
 
   appspring:
     depends_on:
-      - mysqldb
-    image: oussema619/tp_achat_devops:${APP_VERSION} # Use dynamic tag
-    container_name: springapp
-    restart: on-failure
-    env_file: ./.env
+      - mysqldb  # Ensure the MySQL service starts before this service
+    image: oussema619/tp_achat_devops:${APP_VERSION} # Use dynamic tag for the Spring Boot app image
+    container_name: springapp  # Name the container "springapp"
+    restart: on-failure  # Restart the container only if it exits with a failure code
+    env_file: ./.env  # Load environment variables from the .env file
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://mysqldb:${MYSQLDB_DOCKER_PORT}/alinfo?useSSL=false",
-        "spring.datasource.username" : "${MYSQLDB_USER}",
-        "spring.datasource.password" : "${MYSQLDB_ROOT_PASSWORD}",
-        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL57Dialect",
-        "spring.jpa.hibernate.ddl-auto" : "update"}'
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:${MYSQLDB_DOCKER_PORT}/alinfo?useSSL=false", # JDBC URL for MySQL connection
+        "spring.datasource.username" : "${MYSQLDB_USER}", # MySQL username from the .env file
+        "spring.datasource.password" : "${MYSQLDB_ROOT_PASSWORD}", # MySQL password from the .env file
+        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL57Dialect", # Hibernate dialect for MySQL 5.7
+        "spring.jpa.hibernate.ddl-auto" : "update"}' # Automatically update the database schema
     volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
+      - .m2:/root/.m2  # Mount the local Maven repository to avoid downloading dependencies repeatedly
+    stdin_open: true  # Keep the standard input open for debugging
+    tty: true  # Allocate a pseudo-TTY for interactive processes
     networks:
-      - projectdevops
+      - projectdevops  # Connect to the project-specific network
 
 volumes:
-  db:
+  db:  # Define a volume for persisting MySQL data
 
 networks:
-  projectdevops:
+  projectdevops:  # Define the custom network for the project
